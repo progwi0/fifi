@@ -1,2 +1,14 @@
-# fifi
-Fifi - Simple text editor on Tk!
+# Fifi
+
+Simple text editor on Tk!
+
+## Features
+
+- Simple UI.
+- Basic save and open functions.
+- fifi.
+
+## Installation
+
+You can install Fifi via [Pix](https://github.com/progwi0/pix)!
+(or you can download Fifi in releases.)
