@@ -1,6 +1,6 @@
 # Fifi
 
-Simple text editor on Tk!
+Simple text editor on GTK3!
 
 ## Features
 
