@@ -1,76 +1,124 @@
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("GdkPixbuf", "2.0")
+from gi.repository import Gtk, GdkPixbuf
 import os
-import webbrowser
-from tkinter import messagebox as dialogus
-from tkinter import filedialog
-from ttkbootstrap import *
-from ttkbootstrap.constants import *
 
-app = Window(themename="litera")
-app.title("Fifi")
+fifi = Gtk.Window(title = "Kreka")
+fifi.set_default_size(1280, 960)
+fifi.set_icon_from_file("/usr/share/icons/fifi.png")
+ui = Gtk.ScrolledWindow()
 
-homus = os.path.expanduser("~")
-patus = os.path.join(homus, ".progwi0")
-themepath = os.path.join(patus, "theme.txt")
+header = Gtk.HeaderBar(title = "Fifi", subtitle = "d")
+header.set_show_close_button(True)
 
-simplus = "~/.progwi0/theme.txt"
+fififeather = Gtk.Button()
+fififeather.set_hexpand(True)
+fififeather.connect("clicked", lambda fififeather:menu.popup(None, None, None, None, 0, Gtk.get_current_event_time()))
 
-if not os.path.exists(simplus):
-    os.system("cd ~ && mkdir .progwi0 && cd .progwi0 && touch theme.txt")
+fifiimg = Gtk.Image.new_from_icon_name("emoji-symbols-symbolic", Gtk.IconSize.BUTTON)
+fififeather.set_image(fifiimg)
 
-def info():
-    dialogus.showinfo("🪶", "Fifi 5.0\nCreated in 2025 by progwi0.")
+header.set_custom_title(fififeather)
 
-def save():
-    filename = filedialog.asksaveasfilename(defaultextension=".txt",
-                                        filetypes=[("Text Files", "*.txt")],
-                                        title="Save as")
-    with open(filename, "w") as f:
-        f.write(text.get("1.0", "end-1c"))
+entry = Gtk.TextView()
+entry.set_hexpand(True)
+entry.set_vexpand(True)
+
+ui.add(entry)
+
+menu = Gtk.Menu()
+
+newwindow = Gtk.MenuItem(label = "New window")
+newwindow.connect("activate", lambda newwindow:os.system("fifi"))
+menu.append(newwindow)
+
+def save(widget):
+    filename = Gtk.FileChooserDialog(
+        title="savus", 
+        parent=fifi, 
+        action=Gtk.FileChooserAction.SAVE
+    )
+    
+    filename.add_button(Gtk.STOCK_SAVE, Gtk.ResponseType.OK)
+    
+    response = filename.run()
+    
+    if response == Gtk.ResponseType.OK:
+        filus = filename.get_filename()
         
-def openf():
-    filename = filedialog.askopenfilename(defaultextension=".txt",
-                                        filetypes=[("Text Files", "*.txt")],
-                                        title="Open")
-    with open(filename, "r") as file:
-        text.delete(1.0, "end")
-        text.insert("1.0", file.read())
+        buffer = entry.get_buffer()
+        start_iter, end_iter = buffer.get_bounds()
+        contentus = buffer.get_text(start_iter, end_iter, True)
+        
+        with open(filus, "w") as f:
+            f.write(entry.get_text("1.0", "end-1c"))
+            filename.destroy()
+            
+    filename.destroy()
+    
+def openf(widget):
+    filename = Gtk.FileChooserDialog(
+        title="openus", 
+        parent=fifi, 
+        action=Gtk.FileChooserAction.OPEN
+    )
+    
+    filename.add_button(Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
+    
+    response = filename.run()
+    
+    if response == Gtk.ResponseType.OK:
+        filus = filename.get_filename()
+        with open(filus, "r") as f:
+            buffer = entry.get_buffer()
+            buffer.set_text(f.read())
+            filename.destroy()
+            
+    filename.destroy()
+        
+savus = Gtk.MenuItem(label = "Save")
+savus.connect("activate", save)
+menu.append(savus)
 
-def light():
-    app.style.theme_use("litera")
-    with open(themepath, "w") as file:
-        file.write("litera")
+openus = Gtk.MenuItem(label = "Open")
+openus.connect("activate", openf)
+menu.append(openus)
 
-def dark():
-    app.style.theme_use("darkly")
-    with open(themepath, "w") as file:
-        file.write("darkly")
+mysite = Gtk.MenuItem(label = "My site")
+mysite.connect("activate", lambda mysite:webbrowser.open("https://progwi0.github.io/"))
+menu.append(mysite)
 
-def menus():
-    menu.post(app.winfo_pointerx(), app.winfo_pointery())
+def about(widget):
+    dialogus = Gtk.AboutDialog()
+    
+    dialogus.set_program_name("Fifi")
+    dialogus.set_version("7.0")
+    dialogus.set_copyright("© 2025 progwi0")
+    dialogus.set_comments("Simple text editor on GTK3!")
+    
+    iconus = GdkPixbuf.Pixbuf.new_from_file_at_size("/usr/share/icons/fifi.png", 64, 64)
+    dialogus.set_logo(iconus)
+    
+    dialogus.set_website("https://progwi0.github.io/")
+    dialogus.set_authors(["progwi0", "chicken banana", "sigma"])
+    
+    dialogus.set_license_type(Gtk.License.GPL_3_0)
+    
+    dialogus.run()
+    dialogus.destroy()
 
-feather = Button(app, text = "🪶", command = lambda:menu.post(app.winfo_pointerx(), app.winfo_pointery()), bootstyle = SECONDARY)
-feather.pack(fill = "x")
+abouts = Gtk.MenuItem(label = "About Fifi")
+abouts.connect("activate", about)
+menu.append(abouts)
 
-text = Text(app)
-text.pack(fill = "both", expand = True)
+menu.show_all()
 
-menu = Menu(app, tearoff = 0)
-menu.add_separator()
-menu.add_command(label="New", command = lambda:os.system("fifi"))
-menu.add_command(label="Open", command = openf)
-menu.add_command(label="Save", command = save)
-menu.add_separator()
-menu.add_command(label="Light theme", command = light)
-menu.add_command(label="Dark theme", command = dark)
-menu.add_separator()
-menu.add_command(label="Update (Only for pix version)", command = lambda:os.system("pix reinstall fifi"))
-menu.add_separator()
-menu.add_command(label="My site", command = lambda:webbrowser.open("https://progwi0.github.io/"))
-menu.add_command(label="About", command = info)
-menu.add_separator()
+fifi.set_titlebar(header)
 
-with open(themepath, "r") as file:
-        themus = file.read().strip()
-        app.style.theme_use(themus)
+fifi.add(ui)
 
-app.mainloop()
+fifi.connect("destroy", Gtk.main_quit)
+fifi.show_all()
+
+Gtk.main()
