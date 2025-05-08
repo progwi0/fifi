@@ -1,12 +1,12 @@
 # Fifi
 
-Simple text editor on GTK3!
+Simple text editor on GTK3 👣!
 
 ## Features
 
-- Simple UI.
-- Basic save and open functions.
-- fifi.
+    🗔 Simple UI
+
+    🖥️ Basic save/open functions
 
 ## Installation
 
