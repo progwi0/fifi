@@ -1,0 +1,5 @@
+Package: Fifi
+Version: 8.0
+Maintainer: progwi0
+Architecture: all
+Description: Fifi - Simple text editor on GTK3!
