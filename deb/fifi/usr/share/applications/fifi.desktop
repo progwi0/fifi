@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=8.0
+Name=Fifi
+Comment=Fifi - Simple text editor on GTK3!
+Exec=/usr/local/bin/fifi --name "Fifi"
+Icon=/usr/share/icons/fifi.png
+Path=/usr/local/bin
+Terminal=false
+Type=Application
+Categories=Develop;
