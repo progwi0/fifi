@@ -3,21 +3,29 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
 from gi.repository import Gtk, GdkPixbuf
 import os
+import webbrowser
 
-fifi = Gtk.Window(title = "Kreka")
+fifi = Gtk.Window(title = "Fifi")
 fifi.set_default_size(1280, 960)
-fifi.set_icon_from_file("/usr/share/icons/fifi.png")
 ui = Gtk.ScrolledWindow()
 
-header = Gtk.HeaderBar(title = "Fifi", subtitle = "d")
-header.set_show_close_button(True)
+header = Gtk.HeaderBar()
 
 fififeather = Gtk.Button()
 fififeather.set_hexpand(True)
 fififeather.connect("clicked", lambda fififeather:menu.popup(None, None, None, None, 0, Gtk.get_current_event_time()))
 
+closus = Gtk.Button()
+closus.connect("clicked", Gtk.main_quit)
+
+header.pack_start(fififeather)
+header.pack_end(closus)
+
 fifiimg = Gtk.Image.new_from_icon_name("emoji-symbols-symbolic", Gtk.IconSize.BUTTON)
 fififeather.set_image(fifiimg)
+
+closusimg = Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON)
+closus.set_image(closusimg)
 
 header.set_custom_title(fififeather)
 
@@ -93,7 +101,7 @@ def about(widget):
     dialogus = Gtk.AboutDialog()
     
     dialogus.set_program_name("Fifi")
-    dialogus.set_version("7.0")
+    dialogus.set_version("10.0")
     dialogus.set_copyright("© 2025 progwi0")
     dialogus.set_comments("Simple text editor on GTK3!")
     
