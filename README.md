@@ -1,14 +1,15 @@
 # Fifi
 
-Simple text editor on GTK3 👣!
+Fifi - simple text editor on GTK3 👣!
+
+![Fifi on KDE Plasma 6.3](./screenshots/Screenshot_20250522_153506.png)
 
 ## Features
 
-    🗔 Simple UI
+- 🗔 Simple UI
 
-    🖥️ Basic save/open functions
+- 🖥️ Basic save/open functions
 
 ## Installation
 
-You can install Fifi via [Pix](https://github.com/progwi0/pix)!
-(or you can download Fifi in releases.)
+You can download Fifi from [releases](https://github.com/progwi0/fifi/releases) or via [Pix](https://github.com/progwi0/pix).
