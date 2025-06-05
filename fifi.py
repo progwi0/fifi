@@ -11,9 +11,9 @@ ui = Gtk.ScrolledWindow()
 
 header = Gtk.HeaderBar()
 
-fififeather = Gtk.Button()
+fififeather = Gtk.MenuButton()
 fififeather.set_hexpand(True)
-fififeather.connect("clicked", lambda fififeather:menu.popup(None, None, None, None, 0, Gtk.get_current_event_time()))
+fififeather.connect("clicked", lambda fififeather:exp.show_all())
 
 closus = Gtk.Button()
 closus.connect("clicked", Gtk.main_quit)
@@ -30,8 +30,14 @@ closus.set_image(closusimg)
 header.set_custom_title(fififeather)
 
 entry = Gtk.TextView()
+
 entry.set_hexpand(True)
 entry.set_vexpand(True)
+
+entry.set_left_margin(10)
+entry.set_right_margin(10)
+entry.set_top_margin(10)
+entry.set_bottom_margin(10)
 
 ui.add(entry)
 
@@ -60,8 +66,9 @@ def save(widget):
         contentus = buffer.get_text(start_iter, end_iter, True)
         
         with open(filus, "w") as f:
-            f.write(entry.get_text("1.0", "end-1c"))
-            filename.destroy()
+            f.write(contentus)
+
+    filename.destroy()
             
     filename.destroy()
     
@@ -84,29 +91,14 @@ def openf(widget):
             filename.destroy()
             
     filename.destroy()
-        
-savus = Gtk.MenuItem(label = "Save")
-savus.connect("activate", save)
-menu.append(savus)
-
-openus = Gtk.MenuItem(label = "Open")
-openus.connect("activate", openf)
-menu.append(openus)
-
-mysite = Gtk.MenuItem(label = "My site")
-mysite.connect("activate", lambda mysite:webbrowser.open("https://progwi0.github.io/"))
-menu.append(mysite)
 
 def about(widget):
     dialogus = Gtk.AboutDialog()
     
     dialogus.set_program_name("Fifi")
-    dialogus.set_version("10.0")
+    dialogus.set_version("11.0")
     dialogus.set_copyright("© 2025 progwi0")
     dialogus.set_comments("Simple text editor on GTK3!")
-    
-    iconus = GdkPixbuf.Pixbuf.new_from_file_at_size("/usr/share/icons/fifi.png", 64, 64)
-    dialogus.set_logo(iconus)
     
     dialogus.set_website("https://progwi0.github.io/")
     dialogus.set_authors(["progwi0", "chicken banana", "sigma"])
@@ -116,11 +108,32 @@ def about(widget):
     dialogus.run()
     dialogus.destroy()
 
-abouts = Gtk.MenuItem(label = "About Fifi")
-abouts.connect("activate", about)
-menu.append(abouts)
+exp = Gtk.Popover()
 
-menu.show_all()
+menus = Gtk.Box(spacing=1, orientation=Gtk.Orientation.VERTICAL)
+
+newwindows = Gtk.Button(label = "New window")
+newwindows.connect("clicked", lambda newwindow:os.system("fifi"))
+menus.pack_start(newwindows, True, True, 0)
+
+savus = Gtk.Button(label = "Save")
+savus.connect("clicked", save)
+menus.pack_start(savus, True, True, 0)
+
+openus = Gtk.Button(label = "Open")
+openus.connect("clicked", openf)
+menus.pack_start(openus, True, True, 0)
+
+mysite = Gtk.Button(label = "My site")
+mysite.connect("clicked", lambda mysite:webbrowser.open("https://progwi0.github.io/"))
+menus.pack_start(mysite, True, True, 0)
+
+abouts = Gtk.Button(label = "About Fifi")
+abouts.connect("clicked", about)
+menus.pack_start(abouts, True, True, 0)
+
+exp.add(menus)
+fififeather.set_popover(exp)
 
 fifi.set_titlebar(header)
 
