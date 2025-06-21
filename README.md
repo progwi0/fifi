@@ -1,8 +1,8 @@
 # Fifi
 
-### DEB-PACKAGES ISN'T SUPPORTED ANYMORE!
+### LINUX ISN'T SUPPORTED ANYMORE!
 
-Fifi - simple text editor on GTK3 👣!
+Fifi - simple text editor on Tk 🪶!
 
 ![Fifi on KDE Plasma 6.3](./screenshots/Screenshot_20250522_153506.png)
 
