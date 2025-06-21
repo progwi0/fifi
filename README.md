@@ -4,7 +4,7 @@
 
 Fifi - simple text editor on Tk 🪶!
 
-![Fifi on KDE Plasma 6.3](./screenshots/Screenshot_20250522_153506.png)
+![Fifi 12.x on Windows 11](./screenshots/win11fifi12.png)
 
 ## Features
 
