@@ -1,4 +1,4 @@
-# Fifi
+# 📝 Fifi
 📝 Unlock your writing magic.
 
 Fifi is a simple text editor, which can run on every Windows PC!
