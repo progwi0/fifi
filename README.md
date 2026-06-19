@@ -1,6 +1,9 @@
 # 📝 Fifi
 📝 Unlock your writing magic.
 
+> [!IMPORTANT]
+> The development of this project is FOR NOW frozen, I will unfreeze it soon.
+
 Fifi is a simple text editor, which can run on every Windows PC!
 
 ![📝 Fifi 12.0 on Windows 11 🪟](./screenshots/win11fifi12.png)
